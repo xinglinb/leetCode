@@ -15,3 +15,17 @@ function Instanceof(left, right) {
     };
     return false
 }
+
+Array.prototype.myMap = function (fn, thisArg) {
+    if (typeof fn !== 'function')
+        throw new TypeError(fn + 'is not a function')
+    if (Object.prototype.toString.call(this) !== "[object Array]")
+        throw new TypeError('Array.prototype.myMap called on null or undefined')
+    let _this = thisArg || this
+    let arr = Object(this)
+    let result = []
+    for (let i = 0; i < arr.length; i++) {
+        result.push(fn.call(_this, arr[i], i, arr))
+    }
+    return result
+}
